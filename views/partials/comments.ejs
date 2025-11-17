@@ -7,7 +7,13 @@
             </div>
             <div class="col sqs-col-4 sqs-col-comment" style="float: right;">
                 <p>
-                    <button class="sqs-editable-button sqs-editable-button-style comment-btn" style="float: right;">Vote/Comment</button>
+                  <!-- <div class=" bg-accent shadow shadow-accent-light undefined px-8 py-3 rounded-full text-center undefined cursor-pointer hover:scale-103 active:scale-99 duration-500"><p class="text-sm font-medium undefined text-black tracking-widest">VOTE</p></div> -->
+                    <button 
+                      class="sqs-editable-button sqs-editable-button-style comment-btn" 
+                      onclick="toggleHiddenDraft('draft-comment-box')"
+                      style="float: right;">
+                        Vote/Comment
+                    </button>
                 </p>
             </div>
         </div>
@@ -22,8 +28,16 @@
             <button class="btn primary-button-style-outline">best</button>
             <button class="btn primary-button-style-outline">recent</button>
         </div>
-
-    <div class="profile-card">
+      
+    <div id="draft-comment-box" class="profile-card draft hidden comment-box">
+        <div class="row sqs-row">
+            <div class="col sqs-col-4 sqs-col-comment">
+                <h3> <%= title %></h3>
+            </div>
+          </div>
+      </div>
+      
+    <div class="profile-card comment-box">
         <div class="center" style="height: 22.5%">
           <p class="profile-card-name">
             <%= "dfdfs" %>
