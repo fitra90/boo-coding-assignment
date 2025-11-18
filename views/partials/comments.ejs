@@ -87,53 +87,10 @@
         </div>
       </div>
     
-    <!-- existing comment box -->
-    <div class="profile-card comment-box row">
-        <div class="row sqs-row">
-          <div class="col sqs-col-sub-trait comment-box-avatar">
-            <img class="comment-profile-picture" src="https://i.pravatar.cc/150" /> 
-          </div>
-          <div class="col sqs-col-sub-trait comment-box-username">
-            <span>Noah Jackson</span>
-          </div>
-        </div>
-        <div class="row">
-          <div class="sqs-col-12 comment-box-title">
-              <p>
-                INTP for sure!
-              </p>
-          </div>
-        </div>
-        <div class="row sqs-row">
-          <div class="col sqs-col-comment">
-              <div class="rounded-button">INTP</div>
-              <div class="rounded-button">5<img class="wing-of-changes" src="/static/wing.png">9</div>
-              <div class="rounded-button zodiac-sign">TAURUS</div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="comment-box-body">
-              <p>
-                "This is a sample comment. I really love this profile and think it is super accurate!
-                came from my own experience as an INTP 5w1 Taurus. Highly recommend checking out the other profiles on this site as well!"
-              </p>
-          </div>
-        </div>
-     
-        <!-- LOVE/VOTE BUTTON -->
-        <div class="row sqs-row">
-          <div class="col sqs-col-comment">
-              <ul class="comment-loves">
-                <li class="love-button" script="loveComment();">
-                  <i class="material-icons love-icon">favorite</i>
-                </li>
-                <li class="love-count">
-                  <span class="vote-count">45</span>
-                </li>
-              </ul> 
-          </div>
-        </div>
-      </div>
+    <!-- existing comments goes here -->
+    <div id="comments-container"></div>
       
     </div>
 </div>
+
+<%- include('./comments-scripts.ejs') %>
