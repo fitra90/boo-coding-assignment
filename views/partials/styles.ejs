@@ -802,6 +802,10 @@ input, textarea {
     font-weight: 600;
 }
 
+.focus-visible {
+  outline-width: 0 !important;
+  outline-color: transparent !important;
+}
 .comment-box-body {
   text-align: left !important;
 }
@@ -815,6 +819,38 @@ input, textarea {
 .comment-neutral {
   color: #6B6A6A !important;
 }
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 110%;
+  left: 0;
+  background: #4EDCD8;
+  border-radius: 15px;
+  padding: 5px 0;
+  overflow: hidden; 
+  min-width: 120px;
+  z-index: 10;
+}
+
+.dropdown-item {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background: #38B2AC;
+}
+
+.dropdown-menu.open {
+  display: block !important;
+}
+
 
 .bg-accent {
     --tw-bg-opacity: 1;

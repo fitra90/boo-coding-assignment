@@ -87,6 +87,21 @@
     "vote": "",
   }];
 
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const dropdownButton = document.querySelector(".dropdown-toggle");
+    const dropdownMenu = document.querySelector(".dropdown-menu");
+    
+    dropdownButton.addEventListener("click", (e) => {
+        e.stopPropagation()
+        dropdownMenu.classList.toggle("open");
+    });
+
+    document.addEventListener("click", (e) => {
+        dropdownMenu.classList.remove("open");
+    });
+  });
+
   function loveComment(){
     let counter = getElementsByClassName('love-count').textContent;
       alert('sfsdf');
