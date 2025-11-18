@@ -94,11 +94,9 @@
             const id = parseInt(e.target.dataset.id);
             toggleLove(id);
         }
-
-
     });
 
-    const lovedComments = new Set(); // Stores comment IDs
+    const lovedComments = new Set();
     function toggleLove(id) {
         const comment = comments.find(c => c.id === id);
         const isLoved = document.getElementsByClassName('love-icon-'+id)[0];
@@ -118,9 +116,9 @@
         }
         
         document.querySelector('.comment-id-' + id).textContent = comment.love;
- 
     }
 
+    // Dropdown functionality for new comment box
     const dropdownButton = document.querySelector(".dropdown-toggle");
     const dropdownMenu = document.querySelector(".dropdown-menu");
     
@@ -132,7 +130,79 @@
     document.addEventListener("click", (e) => {
         dropdownMenu.classList.remove("open");
     });
-  });
+
+    // Submit button behavior
+    let sendButtonStatus = false;
+    let commentTitleStatus = false;
+    let commentBodyStatus = false;
+    let mbtiStatus = false;
+    let enneagramStatus = false;
+    let zodiacStatus = false;
+   
+    // comment title watcher
+    document.getElementById("commentTitle").addEventListener("keyup", function () {
+        const v = this.value.trim();
+        if (v != "") {
+            commentTitleStatus = true;
+            console.log(commentTitleStatus)
+
+        } 
+        console.log(v)
+        setSendButtonState();
+    });
+
+    // comment body watcher
+    document.getElementById("commentBody").addEventListener("keyup", function () {
+        const v = this.value.trim();
+        if (v != "") {
+            commentBodyStatus = true;
+            console.log(commentBodyStatus)
+        } 
+        setSendButtonState();
+
+    });
+
+    function setSendButtonState() {
+        console.log(commentTitleStatus, commentBodyStatus, mbtiStatus, enneagramStatus, zodiacStatus);
+
+        const sendButton = document.querySelector(".send-button");
+        if (commentTitleStatus || commentBodyStatus || mbtiStatus || enneagramStatus || zodiacStatus ) {
+            sendButton.classList.remove("disabled-button");
+            sendButtonStatus = true;
+        } else {
+            sendButton.classList.add("disabled-button");
+            sendButtonStatus = false;
+        }
+    }
+
+    // === Form Submission ===
+    const commentForm = document.getElementById('comment-form');
+    commentForm?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = {
+            id: Date.now(),
+            avatar: "https://i.pravatar.cc/150?img=1",
+            username: "Nilam Abey",
+            title: e.target.title.value,
+            mbti: document.querySelector('.mbti-toggle').textContent,
+            enneagram: document.querySelector('.enneagram-toggle').textContent,
+            zodiac: document.querySelector('.zodiac-toggle').textContent,
+            comment: e.target.comment.value,
+            love: 0,
+            is_loved_by_current_user: false,
+        };
+        console.log(formData)
+        addComment(formData);
+        e.target.reset();
+    });
+
+    function addComment(newComment) {
+        comments.push(newComment);
+        renderComments(); // Re-render comments
+    }
+
+    //END of DOMContentLoaded
+    });
 
 
 })();

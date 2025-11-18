@@ -33,6 +33,8 @@
         </div>
         
     <!-- new comment box, set to be hidden by default -->
+    <form id="comment-form" >
+      
     <div class="profile-card comment-box row">
         <div class="row sqs-row">
           <div class="col sqs-col-sub-trait comment-box-avatar">
@@ -44,14 +46,14 @@
         </div>
         <div class="row">
           <div class="sqs-col-12 comment-box-title">
-              <input maxlength="300" placeholder="Title" class="text-xl font-medium false">
+              <input type="text" maxlength="300" id="commentTitle" name="title" placeholder="Title" class="text-xl font-medium false">
           </div>
         </div>
         <div class="row sqs-row">
           <div class="col sqs-col-comment new-attribute-container">
               <div class="rounded-button new-attribute">
                 <div class="dropdown">
-                  <button class="rounded-button dropdown-toggle">MBTI</button>
+                  <button class="rounded-button dropdown-toggle mbti-toggle">MBTI</button>
                   <div class="dropdown-menu">
                      <% mbti.forEach(type => { %>
                       <div class="dropdown-item"><%= type %></div>
@@ -61,7 +63,7 @@
               </div>
               <div class="rounded-button new-attribute">
                 <div class="dropdown">
-                  <button class="rounded-button dropdown-toggle">Enneagram</button>
+                  <button class="rounded-button dropdown-toggle enneagram-toggle">Enneagram</button>
                   <div class="dropdown-menu">
                      <% enneagram.forEach(eg => { %>
                       <div class="dropdown-item"><%= eg %></div>
@@ -69,24 +71,33 @@
                   </div>
                 </div>
               </div>
-              <div class="rounded-button new-attribute">Enneagram</div>
-              <div class="rounded-button new-attribute zodiac-sign">Zodiac</div>
+              <div class="rounded-button new-attribute zodiac-sign">
+                <div class="dropdown">
+                  <button class="rounded-button dropdown-toggle zodiac-sign zodiac-toggle">Zodiac</button>
+                  <div class="dropdown-menu">
+                     <% enneagram.forEach(eg => { %>
+                      <div class="dropdown-item"><%= eg %></div>
+                      <% }); %>
+                  </div>
+                </div>
+              </div>
           </div>
         </div>
         <div class="row">
           <div class="comment-box-body">
-              <textarea class="text-xl font-medium false" name="comment-body-to-fill" id="commentBodyToFill" placeholder="Share your opinion by commenting here"></textarea>
+              <textarea id="commentBody" class="text-xl font-medium false" name="comment" id="commentBodyToFill" placeholder="Share your opinion by commenting here"></textarea>
           </div>
         </div>
      
         <!-- SEND BUTTON -->
         <div class="row sqs-row">
           <div class="col comment-send">
-              <i class="material-icons send-icon send-button">send</i>
+              <button class="material-icons send-icon send-button disabled-button" type="submit">send</i>
           </div>
         </div>
       </div>
-    
+    </form>
+
     <!-- existing comments goes here -->
     <div id="comments-container"></div>
       

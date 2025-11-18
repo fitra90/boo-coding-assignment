@@ -723,7 +723,7 @@ input, textarea {
 }
 
 .comment-filter > li:hover, .active, .loved {
-    color:#4EDCD8;
+  color:#4EDCD8;
 }
 
 .comment-loves, .send-button{
@@ -731,21 +731,31 @@ input, textarea {
     color: #6B6A6A;
 }
 
-.love-button, .send-button {
-    cursor: pointer;
+.send-button{
+  background:transparent;
+  border:none;
+}
+
+.disabled-button{
+  cursor: not-allowed;
+  opacity: 50%;
+}
+
+.love-button {
+  cursor: pointer;
 } 
 
-.love-button:hover, .send-button:hover {
-    cursor: pointer;
-    color: #4EDCD8;
+.love-button:hover{
+  cursor: pointer;
+  color: #4EDCD8;
 } 
 
 .comment-send{
-    text-align: right;
-    margin-top: 1em;
+  text-align: right;
+  margin-top: 1em;
 }
 .comment-loves > li {
-    margin-right: 0.2em;
+  margin-right: 0.2em;
 }
 
 .wing-of-changes {
