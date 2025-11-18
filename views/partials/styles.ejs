@@ -685,6 +685,38 @@
   display: none;
 }
 
+.comment-filter {
+    display: inline-flex;
+}
+
+.comment-filter > li {
+    display: flex;
+    padding-right: 1em;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 15px;
+    font-size: 14pt;
+    font-weight: 400;
+}
+
+.comment-filter > li:hover, .active {
+    color:#4EDCD8;
+}
+
+.comment-loves {
+    display: inline-flex;
+    color: #6B6A6A;
+}
+
+.love-button {
+    cursor: pointer;
+    
+} 
+
+.comment-loves > li {
+    margin-right: 0.2em;
+}
+
 .comment-profile-picture {
   border-radius: 50%;
   object-fit: cover;  
@@ -697,16 +729,24 @@
   -o-box-shadow: 2px 2px 20px rgba(0,0,0,0.5);
 }
 
-.profile-name {
-  font-weight: 100 !important;
-  font-size: 0.7em !important;
-}
-
 .comment-box {
-  padding-top: 10px !important;
-  margin-top: 2em !important;
+  padding: 30px !important;
+  margin-top: 3em !important;
   height: auto !important;
   margin-bottom: 1em !important;
+  margin-left: 0px !important;
+
+}
+
+.comment-box-avatar {
+    width: 115px !important;
+    text-align: left;
+}
+
+.comment-box-username {
+    text-align: left;
+    padding-top: 1em;
+    width: auto !important;
 }
 
 .comment-loved {
