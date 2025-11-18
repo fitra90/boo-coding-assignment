@@ -1,50 +1,41 @@
 <script>
 (function() {
   'use strict';
-// get random commentator every time hit comment section
-  const commentators = [
-    {
-      "id": 1,
-      "name": "Paul Gascoine",
-      "description": "I'm Gazza - and I am an alcoholic.",
-      "mbti": "ENFJ",
-      "enneagram": "6w3",
-      "variant": "sp/so",
-      "tritype": 725,
-      "socionics": "SEE",
-      "sloan": "RCOEN",
-      "psyche": "FEVL",
-      "image": "https://m.media-amazon.com/images/M/MV5BY2I4ZWI1NGQtZDM5ZS00ZjE3LTg3MzUtMTZkYjY3MDUxZWZmXkEyXkFqcGc@._V1_.jpg",
-    },
-    {
-      "id": 2,
-      "name": "Robert De Niro",
-      "description": "You talkin' to me?",
-      "mbti": "ISTJ",
-      "enneagram": "5w3",
-      "variant": "sp/so",
-      "tritype": 725,
-      "socionics": "SEE",
-      "sloan": "RCOEN",
-      "psyche": "FEVL",
-      "image": "https://stellaadler.com/wp-content/uploads/2015/08/10-1-290x290.jpg",
-    },
-  ];
 
-  //since it is static data, i put name and picture of commentators here
-  let comments = [{
-    "id": 1,
-    "avatar": "https://i.pravatar.cc/150?img=3",
-    "username": "Noah Jackson",
-    "title": "INTP for sure!",
-    "comment": "This is a sample comment. I really love this profile and think it is super accurate! came from my own experience as an INTP 5w1 Taurus. Highly recommend checking out the other profiles on this site as well!",
-    "mbti": "INTP",
-    "enneagram": "5_wing_9",
-    "zodiac": "TAURUS",
-    "love": "45",
-  }];
+  //since it is collected data in client side, i put init comments here
+  let comments = [
+    {
+        "id": 1,
+        "avatar": "https://i.pravatar.cc/150?img=3",
+        "username": "Noah Jackson",
+        "title": "INTP for sure!",
+        "comment": "This is a sample comment. I really love this profile and think it is super accurate! came from my own experience as an INTP 5w1 Taurus. Highly recommend checking out the other profiles on this site as well!",
+        "mbti": "INTP",
+        "enneagram": "",
+        "zodiac": "TAURUS",
+        "love": "45",
+        "is_loved_by_current_user": false,
+    },
+    {
+        "id": 2,
+        "avatar": "https://i.pravatar.cc/150?img=6",
+        "username": "Miracle Stevey",
+        "title": "INTP or INTJ",
+        "comment": "I wonder if this profile could also fit INTJ types? I feel like there are some similarities between the two, especially when it comes to their analytical and strategic thinking. What do you all think?",
+        "mbti": "ESFJ",
+        "enneagram": "1_wing_3",
+        "zodiac": "VIRGO",
+        "love": "41",
+        "is_loved_by_current_user": false,
+
+    },
+];
 
   document.addEventListener("DOMContentLoaded", () => {
+    
+    // Initial comments render
+    renderComments();
+
     function renderComments(commentsToRender = comments) {
         const container = document.getElementById('comments-container');
 
@@ -69,7 +60,7 @@
                 <div class="col sqs-col-comment">
                     ${comment.mbti !="" ? "<div class='rounded-button'>" + comment.mbti + "</div>" : ''}
                     ${comment.enneagram !="" ? "<div class='rounded-button'>" + comment.enneagram + "</div>" : ''}
-                    ${comment.zodiac !="" ? "<div class='rounded-button'>" + comment.zodiac + "</div>" : ''}
+                    ${comment.zodiac !="" ? "<div class='rounded-button zodiac-sign'>" + comment.zodiac + "</div>" : ''}
                 </div>
                 </div>
                 <div class="row">
@@ -84,11 +75,11 @@
                 <div class="row sqs-row">
                 <div class="col sqs-col-comment">
                     <ul class="comment-loves">
-                        <li class="love-button" script="loveComment();">
-                        <i class="material-icons love-icon">favorite</i>
+                        <li class="love-button">
+                        <i class="material-icons love-icon love-icon-${comment.id}" data-id=${comment.id}>favorite</i>
                         </li>
                         <li class="love-count">
-                        <span class="vote-count">${comment.love}</span>
+                        <span class="vote-count comment-id-${comment.id}">${comment.love}</span>
                         </li>
                     </ul> 
                 </div>
@@ -97,8 +88,38 @@
         `).join('');
     }
 
-    // Initial comments render
-    renderComments();
+    // Handle love button clicks
+    document.addEventListener("click", (e) => {
+        if (e.target.classList.contains('love-icon')) {
+            const id = parseInt(e.target.dataset.id);
+            toggleLove(id);
+        }
+
+
+    });
+
+    const lovedComments = new Set(); // Stores comment IDs
+    function toggleLove(id) {
+        const comment = comments.find(c => c.id === id);
+        const isLoved = document.getElementsByClassName('love-icon-'+id)[0];
+
+        if (!comment) return;
+        
+        if (lovedComments.has(id)) {
+            // Already loved - unlove it
+            comment.love--;
+            lovedComments.delete(id);
+            isLoved.classList.remove('loved');
+        } else {
+            // Not loved yet - love it
+            comment.love++;
+            lovedComments.add(id);
+            isLoved.classList.add('loved');
+        }
+        
+        document.querySelector('.comment-id-' + id).textContent = comment.love;
+ 
+    }
 
     const dropdownButton = document.querySelector(".dropdown-toggle");
     const dropdownMenu = document.querySelector(".dropdown-menu");
@@ -113,10 +134,6 @@
     });
   });
 
-  function loveComment(){
-    let counter = getElementsByClassName('love-count').textContent;
-      alert('sfsdf');
-    } 
 
 })();
 </script>
