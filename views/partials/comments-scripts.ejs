@@ -41,7 +41,7 @@
     
     const sortByMostLovedButton = document.getElementById("sortByMostLoved");
     const sortByDateButton = document.getElementById("sortByDate");
-    
+
     document.addEventListener("DOMContentLoaded", () => {
     
     // Initial comments render
@@ -123,6 +123,29 @@
         renderComments(comments, "byDate");
         sortByMostLovedButton.classList.remove("sorting-button-active");
         sortByDateButton.classList.add("sorting-button-active");
+    });
+
+    //FILTER BY PERSONALITY SYSTEMS
+    const filterItems = document.querySelectorAll('.comment-filter li');
+    filterItems.forEach(item => {
+        item.addEventListener('click', () => {
+
+            filterItems.forEach(i => i.classList.remove('active'));
+            item.classList.add('active');
+
+            const filterType = item.textContent.trim();
+            let filteredComments = comments;
+
+            if (filterType === 'MBTI') {
+                filteredComments = comments.filter(c => c.mbti !== "");
+            } else if (filterType === 'Enneagram') {
+                filteredComments = comments.filter(c => c.enneagram !== "");
+            } else if (filterType === 'Zodiac') {
+                filteredComments = comments.filter(c => c.zodiac !== "");
+            }
+
+            renderComments(filteredComments, "mostLoved");
+        });
     });
 
     // Handle love button clicks
