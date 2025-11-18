@@ -2,6 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
+const path = require('path');
 
 const profiles = [
   {
@@ -18,6 +19,8 @@ const profiles = [
     "image": "https://images.mubicdn.net/images/cast_member/107373/cache-143180-1641846989/image-w856.jpg?size=300x",
   }
 ];
+
+router.use(express.static('public'));
 
 module.exports = function() {
 

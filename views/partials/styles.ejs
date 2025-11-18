@@ -645,8 +645,39 @@
     }
   }
 
+.rounded-button {
+  padding: 0px 13px;
+  font-size: 14px;
+  border-radius: 25px;
+  border: 0;
+  background-color: #4EDCD8;
+  display: inline-block;
+  font-weight: 400;
+}
+
+.sorting-button {
+  background-color: #fff;
+  padding: 10px 20px !important;
+  cursor: pointer;
+  box-shadow: 0px 0px 5px rgba(0,0,0,0.6);
+  -moz-box-shadow: 0px 0px 5px rgba(0,0,0,0.6);
+  -webkit-box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+  -o-box-shadow: 0px 0px 5px rgba(0,0,0,0.6);
+  margin-right: 10px;
+}
+
+.sorting-button-active {
+  font-weight: 500;
+  background-color: #4EDCD8;
+  color: white !important;
+
+}
+
 .zodiac-sign {
-  background-image: ;
+  background-image: url("/static/space.png") !important;
+  color: white !important;
+  background: url('/images/icons.png') no-repeat;
+  background-position: -193px -471px; 
 }
 
 /* comment box styles */
@@ -654,8 +685,54 @@
   display: none;
 }
 
+.comment-profile-picture {
+  border-radius: 50%;
+  object-fit: cover;  
+  object-position: center;
+  width: 100px;
+  height: 100px !important;
+  box-shadow: 2px 2px 20px rgba(0,0,0,0.5);
+  -moz-box-shadow: 2px 2px 20px rgba(0,0,0,0.5);
+  -webkit-box-shadow: 2px 2px 20px rgba(0,0,0,0.5);
+  -o-box-shadow: 2px 2px 20px rgba(0,0,0,0.5);
+}
+
+.profile-name {
+  font-weight: 100 !important;
+  font-size: 0.7em !important;
+}
+
+.comment-box {
+  padding-top: 10px !important;
+  margin-top: 2em !important;
+  height: auto !important;
+  margin-bottom: 1em !important;
+}
+
 .comment-loved {
   color: #4EDCD8 !important;
+}
+
+.big-rounded-button{
+  padding: 14px 38px;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    border-radius: 41px;
+    border: 0;
+    background-color: #4EDCD8;
+    display: inline-block;
+    font-weight: 600;
+}
+
+.comment-box-body {
+  text-align: left !important;
+}
+
+.comment-box-title {
+  font-weight: 600 !important;
+  font-size: 1.5em !important;
+  text-align: left !important;
 }
 
 .comment-neutral {

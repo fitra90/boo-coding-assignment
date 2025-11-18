@@ -9,7 +9,7 @@
                 <p>
                   <!-- <div class=" bg-accent shadow shadow-accent-light undefined px-8 py-3 rounded-full text-center undefined cursor-pointer hover:scale-103 active:scale-99 duration-500"><p class="text-sm font-medium undefined text-black tracking-widest">VOTE</p></div> -->
                     <button 
-                      class="sqs-editable-button sqs-editable-button-style comment-btn" 
+                      class="big-rounded-button" 
                       onclick="toggleHiddenDraft('draft-comment-box')"
                       style="float: right;">
                         Vote/Comment
@@ -25,30 +25,50 @@
                 <li>Eneagram</li>
                 <li>Zodiac</li>
             </ul>
-            <button class="btn primary-button-style-outline">best</button>
-            <button class="btn primary-button-style-outline">recent</button>
+            <button class="sorting-button sorting-button-active rounded-button">best</button>
+            <button class="sorting-button rounded-button">recent</button>
         </div>
       
     <div id="draft-comment-box" class="profile-card draft hidden comment-box">
       <div class="row sqs-row">
         <div class="col sqs-col-4 sqs-col-comment">
             <h3> <%= title %></h3>
+            <div class="row sqs-row">
+            <div class="col sqs-col-4 sqs-col-comment">
+                <textarea name="comment-post" id="comment-post"></textarea>
+            </div>
+          </div>
         </div>
       </div>
     </div>
       
-    <div class="profile-card comment-box">
-     
-        <div class="row sqs-row">
-          <div class="col sqs-col-4 sqs-col-comment">
-              <button>INTP</button>
-              <button>5WIH</button>
-              <div class="rounded-button zodiac-sign">TAURUS</div>
+    <div class="profile-card comment-box row">
+        <div class="row">
+          <div class="comment-box-title">
+            <img class="comment-profile-picture" src="https://i.pravatar.cc/150" /> 
+            <span class="profile-name">Noah Jackson</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="comment-box-title">
+              <p>
+                INTP for sure!
+              </p>
           </div>
         </div>
         <div class="row sqs-row">
-          <div class="col sqs-col-4 sqs-col-comment">
-              <textarea name="comment-post" id="comment-post"></textarea>
+          <div class="col sqs-col-comment">
+              <div class="rounded-button">INTP</div>
+              <div class="rounded-button">5WIH</div>
+              <div class="rounded-button zodiac-sign">TAURUS</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="comment-box-body">
+              <p>
+                "This is a sample comment. I really love this profile and think it is super accurate!
+                came from my own experience as an INTP 5w1 Taurus. Highly recommend checking out the other profiles on this site as well!"
+              </p>
           </div>
         </div>
      
