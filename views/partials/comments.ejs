@@ -50,36 +50,57 @@
         </div>
         <div class="row sqs-row">
           <div class="col sqs-col-comment new-attribute-container">
-              <div class="rounded-button new-attribute">
-                <div class="dropdown">
-                  <button id="mbtiButton" class="rounded-button dropdown-toggle mbti-toggle">MBTI</button>
-                  <div id="mbtiMenu" class="dropdown-menu">
-                     <% mbti.forEach(type => { %>
-                      <div class="dropdown-item"><%= type %></div>
-                      <% }); %>
-                  </div>
-                </div>
+              
+            <!-- MBTI Dropdown -->
+            <div id="mbtiAttribute" class="dropdown attribute-wrapper">
+              <div id="mbtiHeader" class="attribute-header new-attribute-passive">
+                  <button id="mbtiButton" class="rounded-button dropdown-toggle mbti-button">
+                    MBTI
+                  </button>
               </div>
-              <div class="rounded-button new-attribute">
-                <div class="dropdown">
-                  <button id="mbtiButton" class="rounded-button dropdown-toggle enneagram-toggle">Enneagram</button>
-                  <div id="enneagramMenu" class="dropdown-menu">
-                     <% enneagram.forEach(eg => { %>
-                      <div class="dropdown-item"><%= eg %></div>
-                      <% }); %>
-                  </div>
-                </div>
+              <div id="mbtiMenu" class="dropdown-menu">
+                <% mbti.forEach(type => { %>
+                  <div class="dropdown-item"><%= type %></div>
+                <% }); %>
               </div>
-              <div class="rounded-button new-attribute zodiac-sign">
-                <div class="dropdown">
-                  <button id="zodiacButton" class="rounded-button dropdown-toggle zodiac-sign zodiac-toggle">Zodiac</button>
-                  <div id="zodiacMenu" class="dropdown-menu">
-                     <% enneagram.forEach(eg => { %>
-                      <div class="dropdown-item"><%= eg %></div>
-                      <% }); %>
-                  </div>
-                </div>
+            </div>
+              
+            <!-- Enneagram Dropdown -->
+            <div id="enneagramAttribute" class="dropdown attribute-wrapper">
+              <div id="enneagramHeader" class="attribute-header new-attribute-passive">
+                  <button id="enneagramButton" class="rounded-button dropdown-toggle enneagram-button">
+                    Enneagram
+                  </button>
               </div>
+              <div id="enneagramMenu" class="dropdown-menu">
+                <% enneagram.forEach(eg => { 
+                    const enneagramDisplay = eg.replace(
+                        /_wing_/g, 
+                        '<img src="/static/wing.png" alt="wing" class="wing-of-changes">'
+                    );
+                %>
+                    <div class="dropdown-item">
+                        <%- enneagramDisplay %>
+                    </div>
+                <% }) %>
+              </div>
+            </div>
+              
+            <!-- Zodiac Dropdown -->
+            <div id="zodiacAttribute" class="dropdown attribute-wrapper">
+              <div id="zodiacHeader" class="attribute-header new-attribute-passive zodiac-sign">
+                  <button id="zodiacButton" class="rounded-button dropdown-toggle zodiac-button zodiac-sign">
+                    Zodiac
+                  </button>
+              </div>
+
+              <div id="zodiacMenu" class="dropdown-menu">
+                <% zodiac.forEach(eg => { %>
+                  <div class="dropdown-item"><%= eg %></div>
+                <% }); %>
+              </div>
+            </div>
+  
           </div>
         </div>
         <div class="row">

@@ -645,7 +645,10 @@
     }
   }
 
-.rounded-button {
+#mbtiAttribute .dropdown-menu.new-attribute-active {
+  opacity: 100% !important;
+}
+.rounded-button, .new-attribute-active, .attribute-header {
   padding: 0px 13px;
   font-size: 14px;
   border-radius: 25px;
@@ -703,7 +706,8 @@ input, textarea {
 .new-attribute-container {
   margin-top: 1.5em;
 }
-.new-attribute {
+
+.new-attribute-passive:not(.dropdown-menu) {
   opacity: 30%;
   cursor: pointer;
 }
@@ -840,11 +844,12 @@ input, textarea {
 }
 
 .dropdown-menu {
+  opacity: unset !important;
   display: none;
   position: absolute;
   top: 110%;
   left: 0;
-  background: #4EDCD8;
+  background: #4EDCD8 !important;
   border-radius: 15px;
   padding: 5px 0;
   overflow: hidden; 
@@ -862,6 +867,7 @@ input, textarea {
 }
 
 .dropdown-menu.open {
+  opacity: unset;
   display: block !important;
 }
 

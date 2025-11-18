@@ -47,16 +47,16 @@
     // Initial comments render
     renderComments(comments, "mostLoved");
 
-    function renderComments(comments=comments, sortType="mostLoved") {
+    function renderComments(comm=comments, sortType="mostLoved") {
         const container = document.getElementById('comments-container');
         
         if(sortType === "mostLoved") {
-            comments.sort((a, b) => b.love - a.love);
+            comm.sort((a, b) => b.love - a.love);
         } else if (sortType === "byDate") {
-            comments.sort((a, b) => b.id - a.id);
+            comm.sort((a, b) => b.id - a.id);
         }
         
-        container.innerHTML = comments.map(comment => {
+        container.innerHTML = comm.map(comment => {
             const enneagramDisplay = comment.enneagram.replace(
             /_wing_/g, 
             '<img src="/static/wing.png" alt="wing" class="wing-of-changes">'
@@ -178,43 +178,130 @@
         document.querySelector('.comment-id-' + id).textContent = comment.love;
     }
 
-    // Dropdown functionality for new comment box
-    const dropdownButton = document.querySelector(".dropdown-toggle");
-    const dropdownMenu = document.querySelector(".dropdown-menu");
-    
-    dropdownButton.addEventListener("click", (e) => {
-        e.preventDefault(); 
-        e.stopPropagation()
-        dropdownMenu.classList.toggle("open");
-    });
-
-    document.addEventListener("click", (e) => {
-        dropdownMenu.classList.remove("open");
-    });
-
     // MBTI Dropdown
     const mbtiButton = document.getElementById("mbtiButton");
     const mbtiMenu = document.getElementById("mbtiMenu");
+    const mbtiHeader = document.getElementById("mbtiHeader");
 
-    mbtiMenu.addEventListener("click", function(e) {
-        if (e.target.classList.contains("dropdown-item")) {
+    let mbtiStatus = false;
 
-            const selected = e.target.textContent.trim();
-            if (selected !== "MBTI") {
-                mbtiStatus = true;
-                mbtiButton.classList.add("active-button");
-            } else {
-                mbtiStatus = false;
-                mbtiButton.classList.remove("active-button");
+     mbtiButton.addEventListener("click", (e) => {
+        e.preventDefault(); 
+        e.stopPropagation()
+        mbtiMenu.classList.toggle("open");
+        enneagramMenu.classList.remove("open");
+        zodiacMenu.classList.remove("open");
+    });
 
-            }
-            mbtiButton.textContent = selected;
-            mbtiMenu.classList.remove("show");
+    // When clicking an item in the dropdown
+    mbtiMenu.addEventListener("click", function (e) {
+        if (!e.target.classList.contains("dropdown-item")) return;
 
-            setSendButtonState() 
+        const selected = e.target.textContent.trim();
+
+        // Update status & header class
+        if (selected !== "MBTI") {
+            mbtiStatus = true;
+            mbtiHeader.classList.add("new-attribute-active");
+            mbtiHeader.classList.remove("new-attribute-passive");
+        } else {
+            mbtiStatus = false;
+            mbtiHeader.classList.remove("new-attribute-active");
+            mbtiHeader.classList.add("new-attribute-passive");
         }
+
+        mbtiButton.textContent = selected;
+
+        mbtiMenu.classList.remove("show");
+
+        setSendButtonState();
     });
     
+    // Enneagram Dropdown
+    const enneagramButton = document.getElementById("enneagramButton");
+    const enneagramMenu = document.getElementById("enneagramMenu");
+    const enneagramHeader = document.getElementById("enneagramHeader"); 
+
+    let enneagramStatus = false;
+
+    enneagramButton.addEventListener("click", (e) => {
+        e.preventDefault(); 
+        e.stopPropagation()
+        mbtiMenu.classList.remove("open");
+        enneagramMenu.classList.toggle("open");
+        zodiacMenu.classList.remove("open");
+    });
+
+    enneagramMenu.addEventListener("click", function (e) {
+        if (!e.target.classList.contains("dropdown-item")) return;
+
+        const selected = e.target.innerHTML .trim();
+
+        // Update status & header class
+        if (selected !== "Enneagram") {
+            enneagramStatus = true;
+            enneagramHeader.classList.add("new-attribute-active");
+            enneagramHeader.classList.remove("new-attribute-passive");
+        } else {
+            enneagramStatus = false;
+            enneagramHeader.classList.remove("new-attribute-active");
+            enneagramHeader.classList.add("new-attribute-passive");
+        }
+
+        enneagramButton.innerHTML = selected;
+        
+        enneagramMenu.classList.remove("show");
+
+        setSendButtonState();
+    });
+    
+    // Zodiac Dropdown
+    const zodiacButton = document.getElementById("zodiacButton");
+    const zodiacMenu = document.getElementById("zodiacMenu");
+    const zodiacHeader = document.getElementById("zodiacHeader"); 
+
+    let zodiacStatus = false;
+
+    zodiacButton.addEventListener("click", (e) => {
+        e.preventDefault(); 
+        e.stopPropagation()
+        mbtiMenu.classList.remove("open");
+        enneagramMenu.classList.remove("open");
+        zodiacMenu.classList.toggle("open");
+    });
+
+    zodiacMenu.addEventListener("click", function (e) {
+        if (!e.target.classList.contains("dropdown-item")) return;
+
+        const selected = e.target.textContent.trim();
+
+        // Update status & header class
+        if (selected !== "Zodiac") {
+            zodiacStatus = true;
+            zodiacHeader.classList.add("new-attribute-active");
+            zodiacHeader.classList.remove("new-attribute-passive");
+        } else {
+            zodiacStatus = false;
+            zodiacHeader.classList.remove("new-attribute-active");
+            zodiacHeader.classList.add("new-attribute-passive");
+        }
+
+        zodiacButton.textContent = selected;
+        
+        zodiacMenu.classList.remove("show");
+
+        setSendButtonState();
+    });
+    
+
+    //close all menu if clicked outside
+    
+    document.addEventListener("click", (e) => {
+        mbtiMenu.classList.remove("open");
+        enneagramMenu.classList.remove("open");
+        zodiacMenu.classList.remove("open");
+    });
+
      // comment title watcher
      document.getElementById("showNewCommentBox").addEventListener("click", function () {
         const newCommentBox = document.querySelector(".comment-box");
@@ -227,10 +314,7 @@
         const v = this.value.trim();
         if (v != "") {
             commentTitleStatus = true;
-            console.log(commentTitleStatus)
-
         } 
-        console.log(v)
         setSendButtonState();
     });
 
@@ -239,7 +323,6 @@
         const v = this.value.trim();
         if (v != "") {
             commentBodyStatus = true;
-            console.log(commentBodyStatus)
         } 
         setSendButtonState();
 
@@ -259,22 +342,46 @@
 
     // === Form Submission ===
     const commentForm = document.getElementById('comment-form');
+    const commentBox = document.querySelector('.comment-box');
+
     commentForm?.addEventListener('submit', (e) => {
         e.preventDefault();
+        const mbtiSelected = document.querySelector('.mbti-button').textContent.trim()
+        const enneagramSelected = document.querySelector('.enneagram-button').innerHTML.trim()
+        const zodiacSelected = document.querySelector('.zodiac-button').textContent.trim();
         const formData = {
             id: Date.now(),
             avatar: "https://i.pravatar.cc/150?img=1",
             username: "Nilam Abey",
             title: e.target.title.value,
-            mbti: document.querySelector('.mbti-toggle').textContent,
-            enneagram: document.querySelector('.enneagram-toggle').textContent,
-            zodiac: document.querySelector('.zodiac-toggle').textContent,
+            mbti: mbtiSelected !== "MBTI" ? mbtiSelected : "",
+            enneagram: enneagramSelected !== "Enneagram" ? enneagramSelected : "",
+            zodiac: zodiacSelected !== "Zodiac" ? zodiacSelected : "",
             comment: e.target.comment.value,
             love: 0,
             is_loved_by_current_user: false,
         };
-        console.log(formData)
         addComment(formData);
+        commentBox.classList.add("hidden"); // Hide comment box after submission
+        // reset dropdown button
+        document.querySelector('.mbti-button').textContent = "MBTI";
+        document.querySelector('.enneagram-button').innerHTML = "Enneagram";
+        document.querySelector('.zodiac-button').textContent = "Zodiac";
+        // reset header class 
+        mbtiHeader.classList.remove("new-attribute-active");
+        mbtiHeader.classList.add("new-attribute-passive");  
+        enneagramHeader.classList.remove("new-attribute-active");
+        enneagramHeader.classList.add("new-attribute-passive"); 
+        zodiacHeader.classList.remove("new-attribute-active");
+        zodiacHeader.classList.add("new-attribute-passive");
+        // reset status
+        commentTitleStatus = false; 
+        commentBodyStatus = false;
+        mbtiStatus = false;
+        enneagramStatus = false;
+        zodiacStatus = false;
+        setSendButtonState();
+        // reset form
         e.target.reset();
     });
 
