@@ -2,44 +2,67 @@
 (function() {
   'use strict';
 
-  //since it is collected data in client side, i put init comments here
+  //sample comments here
   let comments = [
     {
-        "id": 1,
+        "id": 1763469903498, // id using timestamp for simplicity
         "avatar": "https://i.pravatar.cc/150?img=3",
         "username": "Noah Jackson",
-        "title": "INTP for sure!",
-        "comment": "This is a sample comment. I really love this profile and think it is super accurate! came from my own experience as an INTP 5w1 Taurus. Highly recommend checking out the other profiles on this site as well!",
-        "mbti": "INTP",
+        "title": "ISFJ for sure!",
+        "comment": "This is a sample comment. I really love this profile and think it is super accurate! came from my own experience as an ISFJ 5w1 Taurus. Highly recommend checking out the other profiles on this site as well!",
+        "mbti": "ISFJ",
         "enneagram": "",
-        "zodiac": "TAURUS",
-        "love": "45",
+        "zodiac": "LIBRA",
+        "love": 45,
         "is_loved_by_current_user": false,
     },
     {
-        "id": 2,
+        "id": 1763470002089,
         "avatar": "https://i.pravatar.cc/150?img=6",
         "username": "Miracle Stevey",
-        "title": "INTP or INTJ",
-        "comment": "I wonder if this profile could also fit INTJ types? I feel like there are some similarities between the two, especially when it comes to their analytical and strategic thinking. What do you all think?",
-        "mbti": "ESFJ",
+        "title": "ISFJ or ISTP",
+        "comment": "I wonder if this profile could also fit ISTP types? I feel like there are some similarities between the two, especially when it comes to their analytical and strategic thinking. What do you all think?",
+        "mbti": "ISFJ",
         "enneagram": "1_wing_3",
-        "zodiac": "VIRGO",
-        "love": "41",
+        "zodiac": "LIBRA",
+        "love": 41,
         "is_loved_by_current_user": false,
 
     },
 ];
 
-  document.addEventListener("DOMContentLoaded", () => {
+    // Submit button enabler components init state
+    let sendButtonStatus = false;
+    let commentTitleStatus = false;
+    let commentBodyStatus = false;
+    let mbtiStatus = false;
+    let enneagramStatus = false;
+    let zodiacStatus = false;
+    
+    const sortByMostLovedButton = document.getElementById("sortByMostLoved");
+    const sortByDateButton = document.getElementById("sortByDate");
+    
+    document.addEventListener("DOMContentLoaded", () => {
     
     // Initial comments render
-    renderComments();
+    renderComments(comments, "mostLoved");
 
-    function renderComments(commentsToRender = comments) {
+    function renderComments(comments=comments, sortType="mostLoved") {
         const container = document.getElementById('comments-container');
-
-        container.innerHTML = commentsToRender.map(comment => `
+        
+        if(sortType === "mostLoved") {
+            comments.sort((a, b) => b.love - a.love);
+        } else if (sortType === "byDate") {
+            comments.sort((a, b) => b.id - a.id);
+        }
+        
+        container.innerHTML = comments.map(comment => {
+            const enneagramDisplay = comment.enneagram.replace(
+            /_wing_/g, 
+            '<img src="/static/wing.png" alt="wing" class="wing-of-changes">'
+            );
+            
+            return `
             <div class="profile-card comment-box row">
                 <div class="row sqs-row">
                 <div class="col sqs-col-sub-trait comment-box-avatar">
@@ -59,7 +82,7 @@
                 <div class="row sqs-row">
                 <div class="col sqs-col-comment">
                     ${comment.mbti !="" ? "<div class='rounded-button'>" + comment.mbti + "</div>" : ''}
-                    ${comment.enneagram !="" ? "<div class='rounded-button'>" + comment.enneagram + "</div>" : ''}
+                    ${comment.enneagram !="" ? "<div class='rounded-button'>" + enneagramDisplay + "</div>" : ''}
                     ${comment.zodiac !="" ? "<div class='rounded-button zodiac-sign'>" + comment.zodiac + "</div>" : ''}
                 </div>
                 </div>
@@ -85,8 +108,22 @@
                 </div>
                 </div>
             </div>
-        `).join('');
+        `}).join('');
     }
+
+    //SORTING COMMENTS BY MOST LOVED
+    document.getElementById("sortByMostLoved").addEventListener("click", function () {
+        renderComments(comments, "mostLoved");
+        sortByDateButton.classList.remove("sorting-button-active");
+        sortByMostLovedButton.classList.add("sorting-button-active");
+    });
+
+    //SORTING COMMENTS BY DATE (since we use timestamp as ID, so just sort by ID)
+    document.getElementById("sortByDate").addEventListener("click", function () {
+        renderComments(comments, "byDate");
+        sortByMostLovedButton.classList.remove("sorting-button-active");
+        sortByDateButton.classList.add("sorting-button-active");
+    });
 
     // Handle love button clicks
     document.addEventListener("click", (e) => {
@@ -123,6 +160,7 @@
     const dropdownMenu = document.querySelector(".dropdown-menu");
     
     dropdownButton.addEventListener("click", (e) => {
+        e.preventDefault(); 
         e.stopPropagation()
         dropdownMenu.classList.toggle("open");
     });
@@ -131,14 +169,36 @@
         dropdownMenu.classList.remove("open");
     });
 
-    // Submit button behavior
-    let sendButtonStatus = false;
-    let commentTitleStatus = false;
-    let commentBodyStatus = false;
-    let mbtiStatus = false;
-    let enneagramStatus = false;
-    let zodiacStatus = false;
-   
+    // MBTI Dropdown
+    const mbtiButton = document.getElementById("mbtiButton");
+    const mbtiMenu = document.getElementById("mbtiMenu");
+
+    mbtiMenu.addEventListener("click", function(e) {
+        if (e.target.classList.contains("dropdown-item")) {
+
+            const selected = e.target.textContent.trim();
+            if (selected !== "MBTI") {
+                mbtiStatus = true;
+                mbtiButton.classList.add("active-button");
+            } else {
+                mbtiStatus = false;
+                mbtiButton.classList.remove("active-button");
+
+            }
+            mbtiButton.textContent = selected;
+            mbtiMenu.classList.remove("show");
+
+            setSendButtonState() 
+        }
+    });
+    
+     // comment title watcher
+     document.getElementById("showNewCommentBox").addEventListener("click", function () {
+        const newCommentBox = document.querySelector(".comment-box");
+        newCommentBox.classList.toggle("hidden");
+
+     });
+
     // comment title watcher
     document.getElementById("commentTitle").addEventListener("keyup", function () {
         const v = this.value.trim();
@@ -163,8 +223,7 @@
     });
 
     function setSendButtonState() {
-        console.log(commentTitleStatus, commentBodyStatus, mbtiStatus, enneagramStatus, zodiacStatus);
-
+        // console.log(commentTitleStatus, commentBodyStatus, mbtiStatus, enneagramStatus, zodiacStatus);
         const sendButton = document.querySelector(".send-button");
         if (commentTitleStatus || commentBodyStatus || mbtiStatus || enneagramStatus || zodiacStatus ) {
             sendButton.classList.remove("disabled-button");

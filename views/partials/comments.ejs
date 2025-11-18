@@ -7,10 +7,9 @@
             </div>
             <div class="col sqs-col-4 sqs-col-comment" style="float: right;">
                 <p>
-                  <!-- <div class=" bg-accent shadow shadow-accent-light undefined px-8 py-3 rounded-full text-center undefined cursor-pointer hover:scale-103 active:scale-99 duration-500"><p class="text-sm font-medium undefined text-black tracking-widest">VOTE</p></div> -->
                     <button 
+                      id="showNewCommentBox"
                       class="big-rounded-button" 
-                      onclick="toggleHiddenDraft('draft-comment-box')"
                       style="float: right;">
                         Vote/Comment
                     </button>
@@ -22,20 +21,20 @@
             <ul class="comment-filter">
                 <li class="active">All</li>
                 <li>MBTI</li>
-                <li>Eneagram</li>
+                <li>Enneagram</li>
                 <li>Zodiac</li>
             </ul>
         </div>
 
         <div class="row sqs-row">
-            <button class="sorting-button sorting-button-active rounded-button">best</button>
-            <button class="sorting-button rounded-button">recent</button>
+            <button id="sortByMostLoved" class="sorting-button sorting-button-active rounded-button">best</button>
+            <button id="sortByDate" class="sorting-button rounded-button">recent</button>
         </div>
         
     <!-- new comment box, set to be hidden by default -->
     <form id="comment-form" >
       
-    <div class="profile-card comment-box row">
+    <div class="profile-card comment-box row hidden">
         <div class="row sqs-row">
           <div class="col sqs-col-sub-trait comment-box-avatar">
             <img class="comment-profile-picture" src="https://i.pravatar.cc/130?img=1" /> 
@@ -53,8 +52,8 @@
           <div class="col sqs-col-comment new-attribute-container">
               <div class="rounded-button new-attribute">
                 <div class="dropdown">
-                  <button class="rounded-button dropdown-toggle mbti-toggle">MBTI</button>
-                  <div class="dropdown-menu">
+                  <button id="mbtiButton" class="rounded-button dropdown-toggle mbti-toggle">MBTI</button>
+                  <div id="mbtiMenu" class="dropdown-menu">
                      <% mbti.forEach(type => { %>
                       <div class="dropdown-item"><%= type %></div>
                       <% }); %>
@@ -63,8 +62,8 @@
               </div>
               <div class="rounded-button new-attribute">
                 <div class="dropdown">
-                  <button class="rounded-button dropdown-toggle enneagram-toggle">Enneagram</button>
-                  <div class="dropdown-menu">
+                  <button id="mbtiButton" class="rounded-button dropdown-toggle enneagram-toggle">Enneagram</button>
+                  <div id="enneagramMenu" class="dropdown-menu">
                      <% enneagram.forEach(eg => { %>
                       <div class="dropdown-item"><%= eg %></div>
                       <% }); %>
@@ -73,8 +72,8 @@
               </div>
               <div class="rounded-button new-attribute zodiac-sign">
                 <div class="dropdown">
-                  <button class="rounded-button dropdown-toggle zodiac-sign zodiac-toggle">Zodiac</button>
-                  <div class="dropdown-menu">
+                  <button id="zodiacButton" class="rounded-button dropdown-toggle zodiac-sign zodiac-toggle">Zodiac</button>
+                  <div id="zodiacMenu" class="dropdown-menu">
                      <% enneagram.forEach(eg => { %>
                       <div class="dropdown-item"><%= eg %></div>
                       <% }); %>
